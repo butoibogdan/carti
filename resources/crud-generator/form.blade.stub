@@ -1,0 +1,10 @@
+%%formFieldsHtml%%
+
+<div class="box-footer">
+    <div class="form-group">
+        <div class="col-md-2 col-xs-offset-8">
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Adauga', ['class' => 'btn btn-block btn-success btn-sm']) !!}
+        </div>
+        <div class="col-md-2"><a href = "{{URL::previous()}}" class = 'btn btn-block btn-default btn-sm'>Inapoi la lista</a></div>
+    </div>
+</div>
