@@ -6,29 +6,25 @@
     <!-- Portfolio Item Heading -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Portfolio Item
-                <small>Item Subheading</small>
-            </h1>
+            <h1 class="page-header">{{$book->name}}</h1>
         </div>
     </div>
     <!-- /.row -->
 
     <!-- Portfolio Item Row -->
     <div class="row">
-        <div class="col-md-8">
-            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+        <div class="col-md-5">
+            <img class="img-responsive" src="{{url('books', $book->cover)}}" alt="">
         </div>
 
-        <div class="col-md-4">
-            <h3>Project Description</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-            <h3>Project Details</h3>
-            <ul>
-                <li>Lorem Ipsum</li>
-                <li>Dolor Sit Amet</li>
-                <li>Consectetur</li>
-                <li>Adipiscing Elit</li>
-            </ul>
+        <div class="col-md-7">
+            <h3>{{$book->autor->name}}</h3>
+            <p>{{$book->autor->description}}</p>
+            <br/>
+            <h4>Categorii</h4>
+            @foreach($book->tags as $tag)
+            <a style="text-decoration: none" title="{{$tag->description}}" href="javascript:void(0)"><i style="font-weight: strong; padding-left: 4px;">{{$tag->name}},</i></a>
+            @endforeach
         </div>
 
     </div>

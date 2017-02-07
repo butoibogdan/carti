@@ -44,9 +44,19 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         @if(Auth::check())
-                        <li>
-                            <a href="{{ url('account', Crypt::encrypt(Auth::user()->id)) }}">Account Details</a>
-                        </li>
+                            @if(Auth::user()->usertype==2)
+                                <li>
+                                    <a href="#">Confirmati contul pentru a continua</a>
+                                </li>
+                            @elseif(Auth::user()->usertype==1)
+                                <li>
+                                    <a href="{{ url('auth/dashboard') }}">Dashboard</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ url('account', Crypt::encrypt(Auth::user()->id)) }}">Account Details</a>
+                                </li>
+                            @endif
                         <li>
                             <a href="{{ url('logout') }}">Logout</a>
                         </li>
@@ -67,13 +77,16 @@
         <div class="row">
             <div class="col-lg-12">
                 @if ( Session::has('flash_message') )
-                <div class="col-md-12 alert {{ Session::get('flash_type') }}">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{ Session::get('flash_message') }}
+                <div class="alert alert-warning">
+                    <div class="col-md-12 alert {{ Session::get('flash_type') }}">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ Session::get('flash_message') }}
+                    </div>
                 </div>
                 @endif
             </div>
         </div>
+
         @yield('content')
 
         <!-- jQuery -->

@@ -6,6 +6,11 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Mail as Mails;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 
 class RegisterController extends Controller
 {
@@ -59,6 +64,18 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
     }
+    
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+        Mail::to($user->email)->send(new Mails($user, 'confirm_account'));
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -71,7 +88,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['password'])
         ]);
     }
 }

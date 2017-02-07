@@ -4,20 +4,18 @@ namespace App\Http\Controllers\BO;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Author;
 use Illuminate\Http\Request;
 use Session;
 
-class AuthorsController extends Controller
-{
+class AuthorsController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $authors = Author::paginate(25);
 
         return view('BO.authors.index', compact('authors'));
@@ -28,8 +26,7 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
+    public function create() {
         return view('BO.authors.create');
     }
 
@@ -40,11 +37,15 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
         $requestData = $request->all();
-        
+
         Author::create($requestData);
 
         Session::flash('flash_message', 'Author added!');
@@ -59,8 +60,7 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $author = Author::findOrFail($id);
 
         return view('BO.authors.show', compact('author'));
@@ -73,8 +73,7 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $author = Author::findOrFail($id);
 
         return view('BO.authors.edit', compact('author'));
@@ -88,11 +87,10 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $requestData = $request->all();
-        
+
         $author = Author::findOrFail($id);
         $author->update($requestData);
 
@@ -108,12 +106,12 @@ class AuthorsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Author::destroy($id);
 
         Session::flash('flash_message', 'Author deleted!');
 
         return redirect('auth/authors');
     }
+
 }

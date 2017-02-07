@@ -13,6 +13,8 @@
 
 Route::get('/', 'FO\\HomeController@index');
 Route::get('confirmation/{idu}/{idk}', 'FO\\HomeController@approve');
+Route::get('passwordreset/{idu}/{idk}', 'FO\\HomeController@password_reset');
+Route::get('accountconfirmation/{id}','FO\\HomeController@accountconfirmation');
 
 
 Route::group(['middleware' => 'web'], function() {
@@ -48,7 +50,7 @@ Route::group(['prefix' => 'auth'], function() {
     });
 });
 
-Route::group(['middleware' => ['web', 'auth']], function() {
+Route::group(['middleware' => ['web', 'admin:0,1']], function() {
     Route::get('account/{id}', 'FO\\HomeController@accountDetails');
     Route::post('changeaccount/overview', 'FO\\HomeController@overview');
     Route::post('changeaccount/password', 'FO\\HomeController@password');

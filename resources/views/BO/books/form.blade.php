@@ -10,7 +10,8 @@
         {!! Form::textarea('description', null, ['class' => 'form-control', 'id'=>'texteditor']) !!}
         {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('cover') ? 'has-error' : ''}}">
+</div>
+<div class="form-group {{ $errors->has('cover') ? 'has-error' : ''}}">
     {!! Form::label('cover', 'Cover', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::file('cover',['class' => 'form-control','id'=>'fileinput']) !!}

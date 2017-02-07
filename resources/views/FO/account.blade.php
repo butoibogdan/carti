@@ -40,24 +40,27 @@
             <div id="menu1" class="tab-pane fade">
                 {!! Form::open(['url' => '/changeaccount/password', 'class' => 'form-horizontal', 'files' => true]) !!}
                 <br/><br/>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('old_password') ? 'has-error' : ''}}">
                     <div class="col-md-4"></div>
                     <div class="col-md-6">
                         {!!Form::password('old_password',['class'=>'form-control','placeholder'=>'Old Password']) !!}
+                        {!! $errors->first('old_password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                     <div class="col-md-4"></div>
                     <div class="col-md-6">
                         {!!Form::password('password',['class'=>'form-control','placeholder'=>'Password']) !!}
+                        {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : ''}}">
                     <div class="col-md-4"></div>
                     <div class="col-md-6">
                         {!!Form::password('password_confirmation',['class'=>'form-control','placeholder'=>'Retype password']) !!}
+                        {!! $errors->first('password_confirmation', '<p class="help-block">:message</p>') !!}
                     </div>
                     <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 </div>

@@ -31,7 +31,7 @@ class User extends Authenticatable
         if($this->usertype==$role){
             return true;
         }
-        return true;
+        return false;
     }
     
 }
