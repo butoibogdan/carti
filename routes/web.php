@@ -50,7 +50,7 @@ Route::group(['prefix' => 'auth'], function() {
     });
 });
 
-Route::group(['middleware' => ['web', 'admin:0,1']], function() {
+Route::group(['middleware' => ['web', 'admin:0']], function() {
     Route::get('account/{id}', 'FO\\HomeController@accountDetails');
     Route::post('changeaccount/overview', 'FO\\HomeController@overview');
     Route::post('changeaccount/password', 'FO\\HomeController@password');
